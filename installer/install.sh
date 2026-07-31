@@ -78,14 +78,17 @@ else
     ARCH="$(uname -m)"
     case "$ARCH" in
         x86_64|amd64) ASSET="physics-saver-linux-x86_64" ;;
-        aarch64|arm64) ASSET="physics-saver-macos-arm64" ;;
+        aarch64|arm64)
+            if [ "$(uname -s)" = "Darwin" ]; then
+                ASSET="physics-saver-macos-x86_64"
+                echo "    NOTE: Apple Silicon detected; using the x86_64 build (runs via Rosetta 2)."
+            else
+                echo "    ERROR: Linux ARM64 builds are not available yet. Build from source." >&2
+                exit 1
+            fi
+            ;;
         *) echo "    ERROR: unsupported architecture: $ARCH" >&2; exit 1 ;;
     esac
-    if [ "$(uname -s)" = "Linux" ]; then
-        case "$ARCH" in
-            aarch64|arm64) ASSET="physics-saver-linux-arm64" ;;
-        esac
-    fi
     URL="https://github.com/$REPO/releases/latest/download/$ASSET"
     echo "    downloading $ASSET ..."
     mkdir -p "$INSTALL_DIR"

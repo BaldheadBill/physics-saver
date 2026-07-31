@@ -15,7 +15,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-latest, windows-latest, macos-15, macos-15-arm64]
+        os: [ubuntu-latest, windows-latest, macos-15]
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v4
@@ -86,7 +86,6 @@ jobs:
           mv artifacts/physics-saver-ubuntu-latest/physics-saver release/physics-saver-linux-x86_64
           mv artifacts/physics-saver-windows-latest/physics-saver.exe release/physics-saver-windows-x86_64.exe
           mv artifacts/physics-saver-macos-15/physics-saver release/physics-saver-macos-x86_64
-          mv artifacts/physics-saver-macos-15-arm64/physics-saver release/physics-saver-macos-arm64
           mv artifacts/windows-installer/Physics-Saver-Setup-*.exe release/Physics-Saver-Setup-3.0.0.exe
           chmod +x release/*
           ls -la release
