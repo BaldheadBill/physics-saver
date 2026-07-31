@@ -133,6 +133,7 @@ jobs:
       - uses: actions/download-artifact@v4
         with:
           path: artifacts
+   
 
       - name: Rename binaries
         run: |
@@ -149,3 +150,6 @@ jobs:
         with:
           files: release/*
           generate_release_notes: true
+
+          - name: Attest Build Provenance
+  uses: actions/attest-build-provenance@v4.1.1
