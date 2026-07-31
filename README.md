@@ -1,10 +1,9 @@
 # Physics-Saver
 // 
 // Physics-enhanced retrieval for token-efficient AI conversations.
-// A Rust implementation of the Token-Saver concept: 5 physics models
-// (gravitational rank fusion, thermal decay, damped harmonic oscillation,
-// Boltzmann entropy thresholding, wave interference) rank document chunks so
-// models like Claude and Gemini retrieve only what they need.
+// Five physics models (gravitational rank fusion, thermal decay, damped harmonic
+// oscillation, Boltzmann entropy thresholding, wave interference) rank document
+// chunks so models like Claude and Gemini retrieve only what they need.
 //
 // Key features:
 // - MCP server mode for Claude Desktop, Claude Code, and Gemini CLI
@@ -222,14 +221,7 @@ PHYSICS_SAVER_THERMAL_K=0.1 (decay rate, default: 0.1)
 PHYSICS_SAVER_ENTROPY_TEMP=1.0 (entropy temperature, default: 1.0)
 
 // Time-to-Live:
-TOKEN_SAVER_MCP_TTL_MINUTES=30 (document memory lifetime)
-
-// Pricing:
-TOKEN_SAVER_PRICE_PER_MTOK=3.0 (input cost per million tokens)
-
-// Response Limits:
-TOKEN_SAVER_MCP_MAX_CHARS=8000 (max response size)
-TOKEN_SAVER_MCP_MAX_TOKENS=2000 (max token count)
+PHYSICS_SAVER_MCP_TTL_MINUTES=30 (document memory lifetime)
 // ```
 
 // ### Configuration Files
@@ -262,10 +254,7 @@ export PHYSICS_SAVER_THERMAL_K=0.05
 export PHYSICS_SAVER_ENTROPY_TEMP=1.5
 
 // Increase TTL for long sessions
-export TOKEN_SAVER_MCP_TTL_MINUTES=120
-
-// Monitor token costs
-export TOKEN_SAVER_PRICE_PER_MTOK=2.5
+export PHYSICS_SAVER_MCP_TTL_MINUTES=120
 // ```
 
 // ## Deployment
@@ -312,7 +301,7 @@ CROSS_BUILD=1 cargo build --release --target x86_64-pc-windows-msvc
 // Restart=always
 // RestartSec=10
 // Environment=PHYSICS_SAVER_MODE=1
-// Environment=TOKEN_SAVER_MCP_TTL_MINUTES=60
+// Environment=PHYSICS_SAVER_MCP_TTL_MINUTES=60
 //
 // [Install]
 // WantedBy=multi-user.target
@@ -423,8 +412,7 @@ cargo doc --open
 // #### Environment Variables
 // All Python environment variables work unchanged in Rust:
 // ```bash
-// export TOKEN_SAVER_MCP_TTL_MINUTES=30
-// export TOKEN_SAVER_MCP_MAX_CHARS=8000
+// export PHYSICS_SAVER_MCP_TTL_MINUTES=30
 // ```
 //
 // #### Configuration Files
@@ -556,9 +544,7 @@ cargo bench
 // PHYSICS_SAVER_WAVE_OPT=1 (enable wave interference)
 // PHYSICS_SAVER_HARMONIC_STIFFNESS=1.0 (spring stiffness)
 //
-// TOKEN_SAVER_MCP_TTL_MINUTES=30 (document memory lifetime)
-// TOKEN_SAVER_MCP_MAX_CHARS=8000 (max response size)
-// TOKEN_SAVER_PRICE_PER_MTOK=3.0 (input cost per million tokens)
+// PHYSICS_SAVER_MCP_TTL_MINUTES=30 (document memory lifetime)
 // ```
 
 // ## Physics Models Details
@@ -756,11 +742,11 @@ cargo bench
 // directory, so documents survive across CLI invocations. Override the
 // location with the `PHYSICS_SAVER_STATE_FILE` environment variable.
 // Documents older than their TTL (default 30 minutes, configurable via
-// `TOKEN_SAVER_MCP_TTL_MINUTES`) are skipped when loading state.
+// `PHYSICS_SAVER_MCP_TTL_MINUTES`) are skipped when loading state.
 //
 // ### Environment Variables
 // - `PHYSICS_SAVER_MODE=1`            enable physics scoring (default)
 // - `PHYSICS_SAVER_THERMAL_K=0.1`     thermal decay rate
 // - `PHYSICS_SAVER_ENTROPY_TEMP=1.0`  Boltzmann temperature
-// - `TOKEN_SAVER_MCP_TTL_MINUTES=30`  document TTL in minutes
+// - `PHYSICS_SAVER_MCP_TTL_MINUTES=30`  document TTL in minutes
 // - `PHYSICS_SAVER_STATE_FILE=<path>` state file location

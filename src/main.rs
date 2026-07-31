@@ -244,7 +244,7 @@ impl Store {
         if let Ok(v) = std::env::var("PHYSICS_SAVER_ENTROPY_TEMP") {
             cfg.entropy_temp = v.parse().unwrap_or(cfg.entropy_temp);
         }
-        if let Ok(v) = std::env::var("TOKEN_SAVER_MCP_TTL_MINUTES") {
+        if let Ok(v) = std::env::var("PHYSICS_SAVER_MCP_TTL_MINUTES") {
             cfg.ttl_minutes = v.parse().unwrap_or(cfg.ttl_minutes);
         }
         
@@ -676,7 +676,7 @@ fn main() {
         println!("  PHYSICS_SAVER_MODE=1 (enable physics, default)");
         println!("  PHYSICS_SAVER_THERMAL_K=0.1");
         println!("  PHYSICS_SAVER_ENTROPY_TEMP=1.0");
-        println!("  TOKEN_SAVER_MCP_TTL_MINUTES=30");
+        println!("  PHYSICS_SAVER_MCP_TTL_MINUTES=30");
         println!("  PHYSICS_SAVER_STATE_FILE=<path>");
         return;
     }
