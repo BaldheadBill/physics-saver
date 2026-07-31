@@ -1,0 +1,4 @@
+/target
+/dist
+physics-saver-state.json
+*.log
