@@ -1,5 +1,7 @@
 #!/usr/bin/env rustc
-// Copyright 2026 VantEdge Intelligence, Atlanta, GA
+// Copyright © 2026 VantEdge Intelligence, Atlanta, GA. All rights reserved.
+// Physics-Saver: designed, built, and copyrighted by VantEdge Intelligence.
+// Open-sourced under the MIT License. https://vantedgeintelligence.com/
 // Physics-Saver: Physics-enhanced Claude Desktop extension for token-efficient retrieval
 
 use std::collections::HashMap;

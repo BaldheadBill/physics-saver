@@ -750,3 +750,13 @@ cargo bench
 // - `PHYSICS_SAVER_ENTROPY_TEMP=1.0`  Boltzmann temperature
 // - `PHYSICS_SAVER_MCP_TTL_MINUTES=30`  document TTL in minutes
 // - `PHYSICS_SAVER_STATE_FILE=<path>` state file location
+//
+// ## Credits & Copyright
+//
+// Physics-Saver was designed, built, and is copyrighted by
+// **VantEdge Intelligence**, Atlanta, GA, USA.
+//
+// Copyright © 2026 VantEdge Intelligence, Atlanta, GA. All rights reserved.
+// Released as open source under the [MIT License](LICENSE).
+//
+// For more information: https://vantedgeintelligence.com/
