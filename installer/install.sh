@@ -76,19 +76,19 @@ if command -v "$APP_NAME" >/dev/null 2>&1; then
     echo "    already installed at $EXE_PATH"
 else
     ARCH="$(uname -m)"
-    case "$ARCH" in
-        x86_64|amd64) ASSET="physics-saver-linux-x86_64" ;;
-        aarch64|arm64)
-            if [ "$(uname -s)" = "Darwin" ]; then
-                ASSET="physics-saver-macos-x86_64"
-                echo "    NOTE: Apple Silicon detected; using the x86_64 build (runs via Rosetta 2)."
-            else
+    if [ "$(uname -s)" = "Darwin" ]; then
+        ASSET="physics-saver-macos-universal"
+        echo "    NOTE: macOS universal binary (Intel + Apple Silicon, no Rosetta needed)."
+    else
+        case "$ARCH" in
+            x86_64|amd64) ASSET="physics-saver-linux-x86_64" ;;
+            aarch64|arm64)
                 echo "    ERROR: Linux ARM64 builds are not available yet. Build from source." >&2
                 exit 1
-            fi
-            ;;
-        *) echo "    ERROR: unsupported architecture: $ARCH" >&2; exit 1 ;;
-    esac
+                ;;
+            *) echo "    ERROR: unsupported architecture: $ARCH" >&2; exit 1 ;;
+        esac
+    fi
     URL="https://github.com/$REPO/releases/latest/download/$ASSET"
     echo "    downloading $ASSET ..."
     mkdir -p "$INSTALL_DIR"

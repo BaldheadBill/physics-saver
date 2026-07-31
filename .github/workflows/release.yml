@@ -15,7 +15,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-latest, windows-latest, macos-15]
+        os: [ubuntu-latest, windows-latest]
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v4
@@ -36,6 +36,58 @@ jobs:
             target/release/physics-saver
             target/release/physics-saver.exe
           if-no-files-found: error
+
+  build-macos:
+    name: build-macos-${{ matrix.target }}
+    strategy:
+      fail-fast: false
+      matrix:
+        target: [x86_64-apple-darwin, aarch64-apple-darwin]
+    runs-on: macos-15
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: ${{ matrix.target }}
+
+      - name: Build for ${{ matrix.target }}
+        run: cargo build --release --locked --target ${{ matrix.target }}
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: physics-saver-${{ matrix.target }}
+          path: target/${{ matrix.target }}/release/physics-saver
+          if-no-files-found: error
+
+  create-universal:
+    name: create-universal-macos
+    needs: build-macos
+    runs-on: macos-15
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: physics-saver-x86_64-apple-darwin
+          path: x86_64
+
+      - uses: actions/download-artifact@v4
+        with:
+          name: physics-saver-aarch64-apple-darwin
+          path: arm64
+
+      - name: Combine with lipo
+        run: |
+          set -e
+          mkdir -p universal
+          lipo -create x86_64/physics-saver arm64/physics-saver -output universal/physics-saver
+          chmod +x universal/physics-saver
+          file universal/physics-saver
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: physics-saver-universal
+          path: universal/physics-saver
 
   windows-installer:
     name: build-windows-installer
@@ -72,7 +124,7 @@ jobs:
 
   release:
     name: publish-release
-    needs: [build, windows-installer]
+    needs: [build, create-universal, windows-installer]
     if: startsWith(github.ref, 'refs/tags/v')
     runs-on: ubuntu-latest
     permissions:
@@ -87,7 +139,7 @@ jobs:
           mkdir -p release
           mv artifacts/physics-saver-ubuntu-latest/physics-saver release/physics-saver-linux-x86_64
           mv artifacts/physics-saver-windows-latest/physics-saver.exe release/physics-saver-windows-x86_64.exe
-          mv artifacts/physics-saver-macos-15/physics-saver release/physics-saver-macos-x86_64
+          mv artifacts/physics-saver-universal/physics-saver release/physics-saver-macos-universal
           mv artifacts/windows-installer/Physics-Saver-Setup-*.exe release/Physics-Saver-Setup-3.0.0.exe
           chmod +x release/*
           ls -la release
