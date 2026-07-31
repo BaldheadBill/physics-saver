@@ -50,6 +50,34 @@ cargo build --release
 cargo install physics-saver --locked
 // ```
 //
+// ## One-Click Installation (no command line required)
+//
+// The release page includes ready-to-run installers that download the right
+// binary for your platform and register it with your AI assistant.
+//
+// ### Windows
+// 1. Download `Physics-Saver-Setup-3.0.0.exe` from the latest [release](https://github.com/BaldheadBill/physics-saver/releases).
+// 2. Double-click it and follow the wizard. Optionally tick
+//    "Register with Claude Desktop" / "Register with Gemini CLI".
+// 3. Restart Claude Desktop / Gemini CLI. Done.
+//
+// ### macOS
+// 1. Download `install.command` from the repository (or the release archive).
+// 2. Double-click it. If Gatekeeper warns on first run, right-click the file
+//    and choose **Open**.
+// 3. Answer the prompts; it installs to `~/.local/bin` and can register with
+//    Claude Desktop and Gemini CLI automatically.
+//
+// ### Linux
+// ```bash
+// bash <(curl -fsSL https://raw.githubusercontent.com/BaldheadBill/physics-saver/main/installer/install.sh)
+// ```
+//
+// ### From the repository (any OS)
+// The `installer/` folder contains the sources: `install.ps1` (Windows),
+// `install.sh` (macOS/Linux), `install.command` (macOS double-click), and
+// `Physics-Saver.iss` (Inno Setup source for the Windows setup.exe).
+//
 // ## MCP Integration (Claude & Gemini)
 //
 // Physics-Saver runs as a Model Context Protocol (MCP) server over stdio,

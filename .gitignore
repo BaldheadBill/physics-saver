@@ -1,4 +1,5 @@
 /target
 /dist
+/installer/physics-saver.exe
 physics-saver-state.json
 *.log
