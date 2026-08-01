@@ -9,6 +9,10 @@ on:
 env:
   CARGO_TERM_COLOR: always
 
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
+
 jobs:
   build:
     name: build-${{ matrix.os }}
@@ -136,12 +140,14 @@ jobs:
    
 
       - name: Rename binaries
+        env:
+          VERSION: ${{ github.ref_name }}
         run: |
           mkdir -p release
           mv artifacts/physics-saver-ubuntu-latest/physics-saver release/physics-saver-linux-x86_64
           mv artifacts/physics-saver-windows-latest/physics-saver.exe release/physics-saver-windows-x86_64.exe
           mv artifacts/physics-saver-universal/physics-saver release/physics-saver-macos-universal
-          mv artifacts/windows-installer/Physics-Saver-Setup-*.exe release/Physics-Saver-Setup-3.0.0.exe
+          mv artifacts/windows-installer/Physics-Saver-Setup-*.exe release/Physics-Saver-Setup-${VERSION#v}.exe
           chmod +x release/*
           ls -la release
 
